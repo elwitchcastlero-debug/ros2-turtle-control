@@ -11,16 +11,18 @@ class TurtleController(Node):
         self.publisher_ = self.create_publisher(Twist, '/turtle1/cmd_vel', 10)
         self.timer = self.create_timer(0.1, self.control_loop)
 
-        self.mode = "circulo"
+        self.mode = "manual"
 
     def control_loop(self):
-        msg = Twist()
 
-        if self.mode == "circulo":
+        if self.mode == "manual":
+            return
+
+        elif self.mode == "circulo":
+            msg = Twist()
             msg.linear.x = 2.0
             msg.angular.z = 1.0
-
-        self.publisher_.publish(msg)
+            self.publisher_.publish(msg)
 
 
 def main(args=None):
